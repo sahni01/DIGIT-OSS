@@ -1,10 +1,14 @@
 package org.egov.user.avm.developer.controller;
 
+import static org.apache.commons.lang3.StringUtils.isEmpty;
+
 import java.util.List;
+import java.util.Map;
 
 import javax.validation.Valid;
 
 import org.egov.common.contract.request.RequestInfo;
+import org.egov.tracer.model.CustomException;
 import org.egov.user.avm.developer.dto.UserDeveloperDto;
 import org.egov.user.avm.developer.entity.AddRemoveAuthoizedUsers;
 import org.egov.user.avm.developer.entity.DeveloperInfo;
@@ -13,16 +17,23 @@ import org.egov.user.avm.developer.entity.Developerdetail;
 import org.egov.user.avm.developer.repo.DeveloperRegistrationRepo;
 import org.egov.user.avm.developer.services.DeveloperRegistrationService;
 import org.egov.user.domain.model.User;
+import org.egov.user.domain.model.enums.UserType;
 import org.egov.user.domain.service.UserService;
 import org.egov.user.web.contract.CreateUserRequest;
 import org.egov.user.web.contract.UserRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
@@ -35,22 +46,17 @@ public class DeveloperRegistrationController {
 	@Autowired DeveloperRegistrationService developerRegistrationService;
 	@Autowired DeveloperRegistrationRepo developerRegistrationRepo;
 	@Autowired UserService userService;
+	@Autowired private RestTemplate restTemplate;
 	
 	@PostMapping("/_registration")
 	public DeveloperRegistration createDeveloperRegistraion(@RequestBody DeveloperRegistration developerRegistration) throws JsonProcessingException {
 
-		System.out.println("Registration Api..");
-		
 		DeveloperRegistration developerRegistration1 = developerRegistrationService.addDeveloperRegistraion(developerRegistration); 
-		
-		System.out.println("developer1 detail size ==== : " + developerRegistration1.getDeveloperDetail().size());
-			
-		User newUser = null;
+
 		Long devId=developerRegistration1.getId();
 		UserRequest userRequest ;
 		
-		for(int i =0;i<developerRegistration1.getDeveloperDetail().size();i++) {		
-			
+		for(int i =0;i<developerRegistration1.getDeveloperDetail().size();i++) {				
 			for(int j =0; j<developerRegistration1.getDeveloperDetail().get(i).getDevDetail().getAddRemoveAuthoizedUsers().size();j++ ) {
 				
 				userRequest = new UserRequest();
@@ -72,7 +78,7 @@ public class DeveloperRegistrationController {
 				User user = createUserRequest.toDomain(true);
 				System.out.println("dev Id ======> " + devId);
 				
-				newUser = userService.createUser(user, requestInfo);
+				userService.createUser(user, requestInfo);
 				 
 			}
 		}
@@ -81,9 +87,9 @@ public class DeveloperRegistrationController {
 	}
 	
 	@GetMapping("/_getAuthorizedUser")
-	public UserDeveloperDto viewAuthorizedUserDetail() {
+	public UserDeveloperDto viewAuthorizedUserDetail(@RequestParam("mobileNumber") String mobileNumber) {
 		
-		String mobileNumber = "";
+		//String mobileNumber = "";
 		UserDeveloperDto userDeveloperDto = new UserDeveloperDto();
 		
 		User user = userService.getAuthorizedUser(mobileNumber);
@@ -96,10 +102,45 @@ public class DeveloperRegistrationController {
 		return userDeveloperDto;
 	}
 	
+	@GetMapping("/token")
+	public Object getToken() {
+		
+		String password = "";
+		User user = new User();
+		user.setUsername("rahul7");
+		user.setTenantId("hr");
+		user.setType(UserType.CITIZEN);
+		
+		try {
+			HttpHeaders headers = new HttpHeaders();
+			headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+			headers.set("Authorization", "Basic ZWdvdi11c2VyLWNsaWVudDo=");
+			MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
+			map.add("username", user.getUsername());
+			if (!isEmpty(password))
+				map.add("password", password);
+			else
+				map.add("password", user.getPassword());
+			map.add("grant_type", "password");
+			map.add("scope", "read");
+			map.add("tenantId", user.getTenantId());
+			map.add("isInternal", "true");
+			map.add("userType", UserType.CITIZEN.name());
+
+			HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<MultiValueMap<String, String>>(map,
+					headers);
+			//return restTemplate.postForEntity("localhost:8086" + "/user/oauth/token", request, Map.class).getBody();
+			return request;
+
+		} catch (Exception e) {
+			//log.error("Error occurred while logging-in via register flow", e);
+			throw new CustomException("LOGIN_ERROR",
+					"Error occurred while logging in via register flow: " + e.getMessage());
+		}
 	
-	
-	
-	
+		
+	}
+
 	
 	public DeveloperRegistration createDeveloperRegistraionWithUser(@RequestBody DeveloperInfo developerInfo) throws JsonProcessingException {
 		
@@ -140,56 +181,6 @@ public class DeveloperRegistrationController {
 		System.out.println("user : " + d.getVersion());
 		return d;
 	}
-	
-	
-	//@GetMapping("/_getAuthorized")
-	//public String getAuthorizedUser(@requestParam(value=""))
-	
-	
-	
-
-	
-	//@GetMapping("/_getAuthorizedUser")
-	public UserRequest getAuthorize() {
-		
-		String mobileNumber = "12312312";
-		List<DeveloperRegistration> d = developerRegistrationRepo.findAll();
-		
-		if(d.size()>0) {
-			for(int i=0;i<d.size();i++) {
-				if(d.get(i).getDeveloperDetail().size()>0) {
-					
-					
-					System.out.println("1 : " + d.get(i).getDeveloperDetail().size());
-				
-					for(int j=0;j<d.get(i).getDeveloperDetail().size();j++) {
-						
-						
-						if(d.get(i).getDeveloperDetail().get(j).getDevDetail().getAddRemoveAuthoizedUsers().size()>0) {
-							System.out.println("2 : " + d.get(i).getDeveloperDetail().get(j).getDevDetail().getAddRemoveAuthoizedUsers().size());
-						
-							for(int k=0;k<d.get(i).getDeveloperDetail().get(j).getDevDetail().getAddRemoveAuthoizedUsers().size();k++) {
-								
-								System.out.println("==================================3 " + d.get(i).getDeveloperDetail().get(j).getDevDetail().getAddRemoveAuthoizedUsers().get(k).getMobileNumber());
-								
-								if(d.get(i).getDeveloperDetail().get(j).getDevDetail().getAddRemoveAuthoizedUsers().get(k).getMobileNumber().equals(mobileNumber)) {
-									System.out.println("======================found mobile number : ==============================");
-									
-									return d.get(i).getDeveloperDetail().get(j).getDevDetail().getAddRemoveAuthoizedUsers().get(k);
-									
-								}else {
-									System.out.println("hello");
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-		//System.out.println("user : " + d.getVersion());
-		return null;
-	}
-	
 	
 	@PostMapping("/_create")
 	public DeveloperRegistration createDeveloperRegistraion1(@RequestBody DeveloperRegistration developerRegistration) throws JsonProcessingException {
