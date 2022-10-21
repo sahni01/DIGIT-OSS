@@ -607,10 +607,10 @@ public class UserRepository {
 	
 	public User getAuthorizedUser(String mobileNumber) {
 	
-		String mobilNumber = "0000000000";
-		
+		//String mobilNumber = "1111111111";
+											
 		User user = jdbcTemplate.queryForObject("SELECT * FROM eg_user WHERE mobileNumber=?",
-		          BeanPropertyRowMapper.newInstance(User.class), mobilNumber);
+		          BeanPropertyRowMapper.newInstance(User.class), mobileNumber);
 		
 		return user;
 	}

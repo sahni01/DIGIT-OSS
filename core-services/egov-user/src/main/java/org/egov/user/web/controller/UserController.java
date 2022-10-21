@@ -211,6 +211,8 @@ public class UserController {
                 searchCriteria.setLimit(defaultSearchSize);
         }
 
+        // change isInterServiceCall(headers) to false 
+        System.out.println("isInterServiceCall(headers)==> " + isInterServiceCall(headers));
         List<User> userModels = userService.searchUsers(searchCriteria, isInterServiceCall(headers), request.getRequestInfo());
         List<UserSearchResponseContent> userContracts = userModels.stream().map(UserSearchResponseContent::new)
                 .collect(Collectors.toList());

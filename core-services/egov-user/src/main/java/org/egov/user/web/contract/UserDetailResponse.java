@@ -10,7 +10,8 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 public class UserDetailResponse {
-    @JsonProperty("responseInfo")
+  
+	@JsonProperty("responseInfo")
     ResponseInfo responseInfo;
 
     @JsonProperty("user")

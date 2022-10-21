@@ -179,6 +179,7 @@ public class UserService {
 
 		searchCriteria.validate(isInterServiceCall);
 
+		System.out.println("Get State Level Tenant For Citizen : " + getStateLevelTenantForCitizen(searchCriteria.getTenantId(), searchCriteria.getType()));
 		searchCriteria
 				.setTenantId(getStateLevelTenantForCitizen(searchCriteria.getTenantId(), searchCriteria.getType()));
 		/* encrypt here / encrypted searchcriteria will be used for search */
@@ -189,8 +190,9 @@ public class UserService {
 			altmobnumber = searchCriteria.getMobileNumber();
 		}
 
-		searchCriteria = encryptionDecryptionUtil.encryptObject(searchCriteria, "UserSearchCriteria",
-				UserSearchCriteria.class);
+		// code commented by rahul 
+//		searchCriteria = encryptionDecryptionUtil.encryptObject(searchCriteria, "UserSearchCriteria",
+//				UserSearchCriteria.class);
 
 		if (altmobnumber != null) {
 			searchCriteria.setAlternatemobilenumber(altmobnumber);
