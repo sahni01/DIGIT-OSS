@@ -1,5 +1,7 @@
 package org.egov.common.contract.request;
 
+import java.util.Date;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -21,7 +23,7 @@ public class RequestInfo {
 
     private String ver;
 
-    private Long ts;
+    private Date ts;
 
     private String action;
 
@@ -36,4 +38,6 @@ public class RequestInfo {
     private String correlationId;
 
     private User userInfo;
+    
+    private String parentId;
 }

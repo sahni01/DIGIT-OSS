@@ -33,9 +33,11 @@ public class DocumentController {
     private DocumentService documentService;
 
     @RequestMapping(value="/document/_create", method = RequestMethod.POST)
-    public ResponseEntity<DocumentResponse> create(@RequestBody @Valid DocumentRequest documentRequest) {
+    public ResponseEntity<DocumentResponse> create(@RequestBody DocumentRequest documentRequest) {
         //log.info(documentRequest.getDocumentEntity().toString());
+    	//System.out.println(documentRequest.getDocumentEntity().toString());
         DocumentEntity documentEntity = documentService.createDocument(documentRequest);
+        
         ResponseInfo responseInfo = responseInfoFactory.createResponseInfoFromRequestInfo(documentRequest.getRequestInfo(), true);
         DocumentResponse response = DocumentResponse.builder().documents(Collections.singletonList(documentEntity)).responseInfo(responseInfo).build();
         return new ResponseEntity<>(response, HttpStatus.OK);

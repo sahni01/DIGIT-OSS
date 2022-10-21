@@ -43,6 +43,7 @@ public class EgovAccesscontrolApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(EgovAccesscontrolApplication.class, args);
+		System.out.println("Access-Control Running..");
 	}
 
 	@Bean

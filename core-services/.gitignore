@@ -43,6 +43,11 @@ hs_err_pid*
 target/
 *.mvn
 
+.gitignore
+.metadata
+.recommenders
+/application.properties
+
 # Logs
 logs
 *.log
@@ -194,3 +199,5 @@ $RECYCLE.BIN/
 
 mvnw.cmd
 .mvn/
+/.metadata/
+/.recommenders/

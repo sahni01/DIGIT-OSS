@@ -25,7 +25,9 @@ public class MinioClientFacade {
 		log.info("Initializing the minio ");
 		MinioClient	minioClient = null;
 		try {
-			
+			System.out.println("minioConfig.getEndPoint() : " + minioConfig.getEndPoint());
+			System.out.println("minioConfig.getAccessKey(), : " + minioConfig.getAccessKey());
+			System.out.println("minioConfig.getSecretKey() : " + minioConfig.getSecretKey());
 			minioClient = new MinioClient(minioConfig.getEndPoint(), minioConfig.getAccessKey(), 
 					minioConfig.getSecretKey());
 			

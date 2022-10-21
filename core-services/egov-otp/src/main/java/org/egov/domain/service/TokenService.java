@@ -37,8 +37,10 @@ public class TokenService {
     }
 
     public Token create(TokenRequest tokenRequest) {
-        tokenRequest.validate();
+       
+    	tokenRequest.validate();
 
+        System.out.println("validate request");
         String originalOtp = randomNumeric(otpConfiguration.getOtpLength());
         String encryptedOtp = originalOtp;
 

@@ -90,6 +90,10 @@ public class MinioRepository implements CloudFilesManager {
 			long contentLength = multipartFile.getSize();
 			PutObjectOptions putObjectOptions = new PutObjectOptions(contentLength, PutObjectOptions.MAX_PART_SIZE);
 			putObjectOptions.setContentType(multipartFile.getContentType());
+			System.out.println("minioConfig.getBucketName() : " + minioConfig.getBucketName());
+			System.out.println("fileNameWithPath : "  +fileNameWithPath);
+			System.out.println("is : " + is);
+			System.out.println("putObjectOptions : "  +putObjectOptions);
 			minioClient.putObject(minioConfig.getBucketName(), fileNameWithPath, is, putObjectOptions);
 			log.debug("Upload Successful");
 

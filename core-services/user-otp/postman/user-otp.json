@@ -8,7 +8,7 @@
 	},
 	"item": [
 		{
-			"name": "http://egov-micro-dev.egovernments.org/user-otp/v1/_send",
+			"name": "http://localhost:8081/user-otp/v1/_send",
 			"request": {
 				"url": "http://localhost:8090/user-otp/v1/_send",
 				"method": "POST",

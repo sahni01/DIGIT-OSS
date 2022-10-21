@@ -33,6 +33,7 @@ public class EgovDocumentUploaderApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(EgovDocumentUploaderApplication.class, args);
+		System.out.println("Running..");
 	}
 
 }

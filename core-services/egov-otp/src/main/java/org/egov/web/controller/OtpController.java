@@ -28,6 +28,7 @@ public class OtpController {
     @PostMapping("v1/_create")
     @ResponseStatus(HttpStatus.CREATED)
     public OtpResponse createOtp(@RequestBody @Valid OtpRequest otpRequest) {
+    	System.out.println("otp create request");
         final Token token = tokenService.create(otpRequest.getTokenRequest());
         return new OtpResponse(token);
     }

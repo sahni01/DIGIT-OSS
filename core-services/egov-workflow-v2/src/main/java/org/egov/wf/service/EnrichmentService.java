@@ -221,9 +221,13 @@ public class EnrichmentService {
      * @param request The BusinessService request to be enriched
      */
     public void enrichCreateBusinessService(BusinessServiceRequest request){
-        RequestInfo requestInfo = request.getRequestInfo();
+       
+    	RequestInfo requestInfo = request.getRequestInfo();
         List<BusinessService> businessServices = request.getBusinessServices();
+        System.out.println("businessServices size : " + businessServices.size());
+      
         AuditDetails auditDetails = util.getAuditDetails(requestInfo.getUserInfo().getUuid(),true);
+        
         businessServices.forEach(businessService -> {
         	
         	String tenantId = businessService.getTenantId();
@@ -298,13 +302,18 @@ public class EnrichmentService {
      */
     private void enrichNextState(BusinessService businessService){
         Map<String,String> statusToUuidMap = new HashMap<>();
+        System.out.println(" businessService.getStates() Size = > " + businessService.getStates().size());
         businessService.getStates().forEach(state -> {
+        	System.out.println("for each");
             statusToUuidMap.put(state.getState(),state.getUuid());
         });
         HashMap<String,String> errorMap = new HashMap<>();
         businessService.getStates().forEach(state -> {
             if(!CollectionUtils.isEmpty(state.getActions())){
                 state.getActions().forEach(action -> {
+                	System.out.println("UUID_REGEX===> " + UUID_REGEX);
+                	System.out.println("action.getNextState()==> " + action.getNextState());
+                	System.out.println("statusToUuidMap==> " + statusToUuidMap.get(state.getState()) );
                     if (!action.getNextState().matches(UUID_REGEX) && statusToUuidMap.containsKey(action.getNextState()))
                         action.setNextState(statusToUuidMap.get(action.getNextState()));
                     else if (!action.getNextState().matches(UUID_REGEX) && !statusToUuidMap.containsKey(action.getNextState()))

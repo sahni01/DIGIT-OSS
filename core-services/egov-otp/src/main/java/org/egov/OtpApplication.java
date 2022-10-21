@@ -74,5 +74,6 @@ public class OtpApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(OtpApplication.class, args);
+        System.out.println("Running..");
     }
 }

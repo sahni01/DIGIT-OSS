@@ -11,6 +11,7 @@ public class UserOtpApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(UserOtpApplication.class, args);
+		System.out.println("User Otp Running...");
 	}
 
 }

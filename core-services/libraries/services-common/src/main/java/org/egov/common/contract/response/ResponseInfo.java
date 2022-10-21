@@ -1,5 +1,7 @@
 package org.egov.common.contract.response;
 
+import java.util.Date;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -21,11 +23,13 @@ public class ResponseInfo {
 
     private String ver;
 
-    private Long ts;
+    private Date ts;
 
     private String resMsgId;
 
     private String msgId;
 
     private String status;
+    
+    private String parentId;
 }

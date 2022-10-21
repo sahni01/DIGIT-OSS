@@ -43,9 +43,10 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
         SpringApplication.run(Main.class, args);
+        System.out.println("Workflow Services...");
     }
 
-    @Bean
+    //@Bean
     @Profile("!test")
     public CacheManager cacheManager(){
         return new SpringCache2kCacheManager().addCaches(b->b.name("businessService").expireAfterWrite(workflowExpiry, TimeUnit.MINUTES)

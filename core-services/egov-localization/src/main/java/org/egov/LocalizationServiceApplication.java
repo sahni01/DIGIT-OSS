@@ -54,5 +54,6 @@ public class LocalizationServiceApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(LocalizationServiceApplication.class, args);
+		System.out.println("Running..");
 	}
 }
