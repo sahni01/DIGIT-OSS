@@ -1,0 +1,136 @@
+{
+  "tenantId": "hr",
+  "moduleName": "Add Info",
+  "Developer": [
+    {
+        "sNo": "1",
+        "fieldName": "Business type",
+        "fieldType": "Dropdown",
+        "isMandatory": "yes",
+        "validations": "Selection business type",
+        "minLength": "2",
+        "maxLength": "20",
+        "toBeEnteredByTheUserOrPopulated/CalculatedThroughManual/API": "Selectable (public ltd./Pvt. ltd./LLP/partn ership/proprietorship)"
+    },
+    {
+        "sNo": "2",
+        "fieldName": "CIN Number",
+        "fieldType": "Alphanumeric",
+        "isMandatory": "No",
+        "validations": "No Special Characters Only  Allowed (A-Z, a z and 0-9)",
+        "minLength": "2",
+        "maxLength": "20",
+        "toBeEnteredByTheUserOrPopulated/CalculatedThroughManual/API": "Applicable in  case of public  ltd./Pvt. ltd./LLP/partnership"
+      },
+      {
+        "sNo": "3",
+        "fieldName": "Company Name",
+        "fieldType": "Alphanumeric",
+        "isMandatory": "yes",
+        "validations": "Cannot Be Blank ",
+        "minLength": "2 ",
+        "maxLength": "50 ",
+        "toBeEnteredByTheUserOrPopulated/CalculatedThroughManual/API": "Fetched through MCA  API in case of  public ltd./Pvt.  ltd./LLP/partn ership) else enterable"
+      },
+      {
+        "sNo": "4",
+        "fieldName": "Date of incorporation",
+        "fieldType": "Date Picker",
+        "isMandatory": "Yes",
+        "validations": "Select date",
+        "minLength": "NA",
+        "maxLength": "NA",
+        "toBeEnteredByTheUserOrPopulated/CalculatedThroughManual/API": "Fetched thrpugh MCA API in case of public ltd./pvt. ltd./LLP/partnership) else enterable"
+      },
+      {
+        "sNo": "5",
+        "fieldName": "Registered Address",
+        "fieldType": "Alphanumeric",
+        "isMandatory": "yes",
+        "validations": "Cannot Be Blank ",
+        "minLength": "2",
+        "maxLength": "100",
+        "toBeEnteredByTheUserOrPopulated/CalculatedThroughManual/API": "Fetched thrpugh MCA API in case of public ltd./pvt. ltd./LLP/partnership) else enterable"
+      },
+      {
+        "sNo": "6",
+        "fieldName": "Email id",
+        "fieldType": "Alphanumeric",
+        "isMandatory": "yes",
+        "validations": "Cannot Be Blank ",
+        "minLength": "8",
+        "maxLength": "50",
+        "toBeEnteredByTheUserOrPopulated/CalculatedThroughManual/API": "Fetched thrpugh MCA API in case of public ltd./pvt. ltd./LLP/partnership) else enterable"
+      },
+      {
+        "sNo": "7",
+        "fieldName": "Contact No",
+        "fieldType": "Numeric",
+        "isMandatory": "Yes",
+        "validations": "Cannot Be Blank ",
+        "minLength": "10",
+        "maxLength": "10",
+        "toBeEnteredByTheUserOrPopulated/CalculatedThroughManual/API": "Fetched thrpugh MCA API in case of public ltd./pvt. ltd./LLP/partnership) else enterable"
+      },
+      {
+        "sNo": "8",
+        "fieldName": "GST Number",
+        "fieldType": "NA",
+        "isMandatory": "Yes",
+        "validations": "It should be 15  characters long. The first 2 characters should be a number. The next 10  characters should be the PAN number. The 13th character (entity  code) should be  a number from  1-9 or an alphabet. The 14th character should  be Z. The 15th character should  be an alphabet  or a number",
+        "minLength": "",
+        "maxLength": "",
+        "toBeEnteredByTheUserOrPopulated/CalculatedThroughManual/API": "Fetched thrpugh MCA API in case of public ltd./pvt. ltd./LLP/partnership) else enterable"
+      },
+      {
+        "sNo": "9",
+        "fieldName": "DIN no.",
+        "fieldType": "Numeric",
+        "isMandatory": "Yes",
+        "validations": "Numeric only",
+        "minLength": "8",
+        "maxLength": "8",
+        "toBeEnteredByTheUserOrPopulated/CalculatedThroughManual/API": "This field cannot be blank"
+      },
+      {
+        "sNo": "10",
+        "fieldName": "PAN No",
+        "fieldType": "Alphanumeric",
+        "isMandatory": "Yes",
+        "validations": "Cannot be blank",
+        "minLength": "10",
+        "maxLength": "10",
+        "toBeEnteredByTheUserOrPopulated/CalculatedThroughManual/API": "Fetched thrpugh MCA API in case of public ltd./pvt. ltd./LLP/partnership) else enterable"
+      },
+      {
+        "sNo": "11",
+        "fieldName": "Add Remove Authorised User Name",
+        "fieldType": "Text",
+        "isMandatory": "Yes",
+        "validations": "Letters only",
+        "minLength": "3",
+        "maxLength": "100",
+        "toBeEnteredByTheUserOrPopulated/CalculatedThroughManual/API": "Enterable"
+      },
+      {
+        "sNo": "12",
+        "fieldName": "Mobile Number",
+        "fieldType": "Numeric",
+        "isMandatory": "Yes",
+        "validations": "Numbers only",
+        "minLength": "10",
+        "maxLength": "10",
+        "toBeEnteredByTheUserOrPopulated/CalculatedThroughManual/API": "Enterable"
+      },
+      {
+        "sNo": "13",
+        "fieldName": "Email ID",
+        "fieldType": "Alphanumeric",
+        "isMandatory": "Yes",
+        "validations": "Cannot Be Blank ",
+        "minLength": "10",
+        "maxLength": "30",
+        "toBeEnteredByTheUserOrPopulated/CalculatedThroughManual/API": "Enterable"
+      }
+  ]
+}
