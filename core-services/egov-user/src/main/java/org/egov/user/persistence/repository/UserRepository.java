@@ -194,6 +194,10 @@ public class UserRepository {
         updateuserInputs.put("type", oldUser.getType().toString());
         updateuserInputs.put("tenantid", oldUser.getTenantId());
         updateuserInputs.put("AadhaarNumber", user.getAadhaarNumber());
+        
+        if(user.getParentid()!=null) {
+        	updateuserInputs.put("parentid", user.getParentid());
+        }
 
         if (isNull(user.getAccountLocked()))
             updateuserInputs.put("AccountLocked", oldUser.getAccountLocked());
@@ -614,5 +618,12 @@ public class UserRepository {
 		
 		return user;
 	}
+	
+	public User getUser(Long id) {
+		User user = jdbcTemplate.queryForObject("SELECT * FROM eg_user WHERE id=?",  
+				BeanPropertyRowMapper.newInstance(User.class),id);
+		return user;
+	}
+
 
 }

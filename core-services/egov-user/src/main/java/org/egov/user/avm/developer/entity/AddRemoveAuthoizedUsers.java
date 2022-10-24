@@ -11,6 +11,7 @@ import lombok.Setter;
 @Setter
 public class AddRemoveAuthoizedUsers {
 	
+	private Long id;
 	private int serialNumber;
 	private String userName;
 	private String gender;

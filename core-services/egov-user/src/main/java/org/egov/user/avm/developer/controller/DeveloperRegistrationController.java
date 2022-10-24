@@ -11,6 +11,7 @@ import org.egov.common.contract.request.RequestInfo;
 import org.egov.tracer.model.CustomException;
 import org.egov.user.avm.developer.dto.UserDeveloperDto;
 import org.egov.user.avm.developer.entity.AddRemoveAuthoizedUsers;
+import org.egov.user.avm.developer.entity.CreateDeveloperRegRequest;
 import org.egov.user.avm.developer.entity.DeveloperInfo;
 import org.egov.user.avm.developer.entity.DeveloperRegistration;
 import org.egov.user.avm.developer.entity.Developerdetail;
@@ -19,6 +20,7 @@ import org.egov.user.avm.developer.services.DeveloperRegistrationService;
 import org.egov.user.domain.model.User;
 import org.egov.user.domain.model.enums.UserType;
 import org.egov.user.domain.service.UserService;
+import org.egov.user.persistence.repository.UserRepository;
 import org.egov.user.web.contract.CreateUserRequest;
 import org.egov.user.web.contract.UserRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +38,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.sun.xml.internal.bind.v2.runtime.output.StAXExStreamWriterOutput;
 
 
 @RestController
@@ -47,38 +50,27 @@ public class DeveloperRegistrationController {
 	@Autowired DeveloperRegistrationRepo developerRegistrationRepo;
 	@Autowired UserService userService;
 	@Autowired private RestTemplate restTemplate;
+	@Autowired private UserRepository userRepository;
 	
 	@PostMapping("/_registration")
-	public DeveloperRegistration createDeveloperRegistraion(@RequestBody DeveloperRegistration developerRegistration) throws JsonProcessingException {
+	public DeveloperRegistration createDeveloperRegistraion(@RequestBody CreateDeveloperRegRequest createDeveloperRegRequest) throws JsonProcessingException {
 
-		DeveloperRegistration developerRegistration1 = developerRegistrationService.addDeveloperRegistraion(developerRegistration); 
+		
+		DeveloperRegistration developerRegistration1 = developerRegistrationService.addDeveloperRegistraion(createDeveloperRegRequest.getDeveloperRegistration()); 
 
 		Long devId=developerRegistration1.getId();
-		UserRequest userRequest ;
 		
 		for(int i =0;i<developerRegistration1.getDeveloperDetail().size();i++) {				
 			for(int j =0; j<developerRegistration1.getDeveloperDetail().get(i).getDevDetail().getAddRemoveAuthoizedUsers().size();j++ ) {
+			
+				Long userId = developerRegistration1.getDeveloperDetail().get(i).getDevDetail().getAddRemoveAuthoizedUsers().get(j).getId();
+				System.out.println("lo9ng Developer id : " + userId);
 				
-				userRequest = new UserRequest();
-				
-				CreateUserRequest createUserRequest = new CreateUserRequest();
-				RequestInfo requestInfo = new RequestInfo();
-				requestInfo.setApiId("1");
-				requestInfo.setVer("1");
-				requestInfo.setDid("");
-				requestInfo.setAction("_create");
-				requestInfo.setAuthToken("null");
-				createUserRequest.setRequestInfo(requestInfo);
-				
-				userRequest = developerRegistration1.getDeveloperDetail().get(i).getDevDetail().getAddRemoveAuthoizedUsers().get(j);
-				
-				createUserRequest.setUser(userRequest);
-				createUserRequest.getUser().setParentid(devId);
-				
-				User user = createUserRequest.toDomain(true);
-				System.out.println("dev Id ======> " + devId);
-				
-				userService.createUser(user, requestInfo);
+				User user = userRepository.getUser(userId);
+				System.out.println("user gender : " + user.getGender());
+				System.out.println(user.getId());
+				user.setParentid(devId);
+				userRepository.update(user, user, user.getId(), user.getUuid());
 				 
 			}
 		}

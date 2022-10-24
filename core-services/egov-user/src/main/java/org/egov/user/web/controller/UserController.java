@@ -110,6 +110,7 @@ public class UserController {
         
         final User newUser = userService.createUser(user, createUserRequest.getRequestInfo());
         System.out.println("parent id : " + newUser.getParentid());
+        newUser.setParentid(user.getId());
        return createResponse(newUser);
         
     }
