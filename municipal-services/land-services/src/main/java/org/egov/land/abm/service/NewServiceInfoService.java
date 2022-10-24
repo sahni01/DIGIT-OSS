@@ -28,4 +28,9 @@ public class NewServiceInfoService {
 
 		return newServiceInfoRepo.findAll();
 	}
+
+	public List<String> getApplicantsNumber() {
+		
+		return this.newServiceInfoRepo.getApplicantsNumber();
+	}
 }

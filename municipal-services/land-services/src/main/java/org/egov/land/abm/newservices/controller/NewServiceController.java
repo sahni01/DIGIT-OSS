@@ -52,6 +52,11 @@ public class NewServiceController {
 
 		return newServiceInfoService.getNewServicesInfoAll();
 	}
+	
+	@GetMapping("/licenses/_applicants")
+	public List<String> getApplicantsNumber(){
+		return newServiceInfoService.getApplicantsNumber();
+	}
 
 	public String Step1Data() {
 		List<Step1> list = new ArrayList<>();
