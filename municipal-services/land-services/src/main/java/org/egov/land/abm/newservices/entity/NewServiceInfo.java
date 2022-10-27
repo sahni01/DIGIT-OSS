@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.Size;
+
 import org.egov.common.contract.request.RequestInfo;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
@@ -31,13 +33,13 @@ public class NewServiceInfo {
 	@Column(name="current_version")
 	private float currentVersion;
 	
-	@Column(name="created_by")
+	@Column(name="created_by",length = 100)
 	private String createdBy;
 	
 	@Column(name="created_date")
 	private Date createdDate;
 	
-	@Column(name="updated_by")
+	@Column(name="updated_by",length = 100)
 	private String updateddBy;
 	
 	@Column(name="updated_date")
