@@ -3,6 +3,7 @@ package org.egov.land.abm.models;
 import org.egov.common.contract.request.RequestInfo;
 import org.egov.land.abm.newservices.entity.EgScrutiny;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,7 +17,9 @@ import lombok.Setter;
 @Getter
 @Setter
 public class EgScrutinyInfoRequest {
-
-	private RequestInfo requestInfo = null;
+	
+@JsonProperty("RequestInfo")
+	private RequestInfo requestInfo ;
+@JsonProperty("EgScrutiny")
 	private EgScrutiny egScrutiny;
 }

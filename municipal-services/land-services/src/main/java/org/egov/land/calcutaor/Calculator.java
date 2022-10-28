@@ -10,8 +10,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class Calculator implements CalculatorFees {
 
-	// @Autowired static UpdateJson updateJosn;
-
 	public static float areaInSqmtr(float arce) {
 		return (AREA * arce);
 	}
@@ -22,11 +20,9 @@ public class Calculator implements CalculatorFees {
 		UpdateJson updateJosn = new UpdateJson();
 
 		FeesType feesType = updateJosn.readPurposeJson(feeType, potenialZone, purposepurposename, colonyType);
-		System.out.println("far value size : " + feesType.getFarValue().size());
 		FeesTypeCalculationDto feesTypeCalculationDto = new FeesTypeCalculationDto();
 		feesTypeCalculationDto.setFarValue(feesType.getFarValue());
 
-	
 		float area1 = (PERCENTAGE1 * arce);
 		float area2 = PERCENTAGE2 * arce;
 
@@ -1486,7 +1482,7 @@ public class Calculator implements CalculatorFees {
 					feesTypeCalculationDto.setStateInfrastructureDevelopmentChargesCal(
 							(PERCENTAGE1 * areaInSqmtr(arce) * 500) + (PERCENTAGE2 * areaInSqmtr(arce)
 									* feesType.getStateInfrastructureDevelopmentCharges() * 1000));
-					break; 
+					break;
 				/* colonyType fee end */
 				}
 
@@ -1549,7 +1545,7 @@ public class Calculator implements CalculatorFees {
 					feesTypeCalculationDto.setStateInfrastructureDevelopmentChargesCal(
 							(PERCENTAGE1 * areaInSqmtr(arce) * 375) + (PERCENTAGE2 * areaInSqmtr(arce)
 									* feesType.getStateInfrastructureDevelopmentCharges() * 750));
-					break; 
+					break;
 				/* colonyType fee end */
 				}
 
@@ -1602,7 +1598,7 @@ public class Calculator implements CalculatorFees {
 					feesTypeCalculationDto.setStateInfrastructureDevelopmentChargesCal(
 							(PERCENTAGE1 * areaInSqmtr(arce) * 375) + (PERCENTAGE2 * areaInSqmtr(arce)
 									* feesType.getStateInfrastructureDevelopmentCharges() * 750));
-					break; 
+					break;
 				/* colonyType fee end */
 				}
 
@@ -1662,7 +1658,7 @@ public class Calculator implements CalculatorFees {
 							(PERCENTAGE1 * areaInSqmtr(arce) * 250) + (PERCENTAGE2 * areaInSqmtr(arce)
 									* feesType.getStateInfrastructureDevelopmentCharges() * 500));
 
-					break; 
+					break;
 				/* colonyType fee end */
 				}
 
@@ -1721,7 +1717,7 @@ public class Calculator implements CalculatorFees {
 					feesTypeCalculationDto.setStateInfrastructureDevelopmentChargesCal(
 							(PERCENTAGE1 * areaInSqmtr(arce) * 70) + (PERCENTAGE2 * areaInSqmtr(arce)
 									* feesType.getStateInfrastructureDevelopmentCharges() * 190));
-					break; 
+					break;
 				/* colonyType fee end */
 				}
 
@@ -1778,7 +1774,7 @@ public class Calculator implements CalculatorFees {
 					feesTypeCalculationDto.setStateInfrastructureDevelopmentChargesCal(
 							(PERCENTAGE1 * areaInSqmtr(arce) * 70) + (PERCENTAGE2 * areaInSqmtr(arce)
 									* feesType.getStateInfrastructureDevelopmentCharges() * 190));
-					break; 
+					break;
 				/* colonyType fee end */
 				}
 

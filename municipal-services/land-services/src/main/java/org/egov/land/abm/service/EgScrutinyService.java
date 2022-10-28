@@ -15,9 +15,10 @@ public class EgScrutinyService {
 	
 	public EgScrutiny createEgScrutiny(EgScrutinyInfoRequest egScrutinyInfoRequest) {
 		return egScrutinyRepo.save(egScrutinyInfoRequest.getEgScrutiny());
+		
 	}
 	
-	public List<EgScrutiny> search(String applicationNumber) {
+	public List<EgScrutiny> search(Integer applicationNumber) {
 		
 		return this.egScrutinyRepo.findByApplicationId(applicationNumber);
 	}

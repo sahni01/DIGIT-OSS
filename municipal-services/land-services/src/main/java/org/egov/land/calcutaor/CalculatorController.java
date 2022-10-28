@@ -14,16 +14,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class CalculatorController {
 
-//	@Autowired
-//	Calculator calculatorService;
+	@Autowired
+	FeeTypeCalculationDtoInfo info;
 
 	@GetMapping("/_calculate")
 	public FeeTypeCalculationDtoInfo get(@RequestParam("arce") float arce, @RequestParam("feeType") String feeType,
 			@RequestParam("potenialZone") String potenialZone, @RequestParam("purposename") String purposename,
 			@RequestParam("colonyType") String colonyType) throws FileNotFoundException, IOException, ParseException {
-		
-		FeeTypeCalculationDtoInfo info = new FeeTypeCalculationDtoInfo();
-		FeesTypeCalculationDto calculator = Calculator.feesTypeCalculation(arce, feeType, potenialZone, purposename, colonyType);
+
+		FeesTypeCalculationDto calculator = Calculator.feesTypeCalculation(arce, feeType, potenialZone, purposename,
+				colonyType);
 		info.setFeeTypeCalculationDto(calculator);
 		return info;
 	}
