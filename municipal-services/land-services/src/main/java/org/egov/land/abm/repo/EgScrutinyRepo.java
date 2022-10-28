@@ -9,5 +9,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface EgScrutinyRepo extends JpaRepository<EgScrutiny, Long>{
 
-	public List<EgScrutiny> findByApplicationId(String applicationNumber);
+	public List<EgScrutiny> findByApplicationId(Integer applicationNumber);
 }

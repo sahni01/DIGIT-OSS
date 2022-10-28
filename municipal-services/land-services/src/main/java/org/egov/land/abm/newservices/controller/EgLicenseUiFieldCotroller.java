@@ -36,7 +36,6 @@ public class EgLicenseUiFieldCotroller {
 		EgLiecnseUiField egLiecnseUiField = egLiecnseUiFieldServices.create(egLiecnseUiFieldInfoRequest);
 		List<EgLiecnseUiField> EgLiecnseUiFieldList = new ArrayList<>();
 		EgLiecnseUiFieldList.add(egLiecnseUiField);
-		//EgLiecnseUiFieldInfoResponse
 		EgLiecnseUiFieldInfoResponse egLiecnseUiFieldInfoResponse = EgLiecnseUiFieldInfoResponse.builder(). egLiecnseUiField(EgLiecnseUiFieldList)
 				.responseInfo(responseInfoFactory
 						.createResponseInfoFromRequestInfo(egLiecnseUiFieldInfoRequest.getRequestInfo(), true))
@@ -52,7 +51,6 @@ public class EgLicenseUiFieldCotroller {
 		EgLiecnseUiField egLiecnseUiField = egLiecnseUiFieldServices.create(egLiecnseUiFieldInfoRequest);
 		List<EgLiecnseUiField> EgLiecnseUiFieldList = new ArrayList<>();
 		EgLiecnseUiFieldList.add(egLiecnseUiField);
-		//EgLiecnseUiFieldInfoResponse
 		EgLiecnseUiFieldInfoResponse egLiecnseUiFieldInfoResponse = EgLiecnseUiFieldInfoResponse.builder(). egLiecnseUiField(EgLiecnseUiFieldList)
 				.responseInfo(responseInfoFactory
 						.createResponseInfoFromRequestInfo(egLiecnseUiFieldInfoRequest.getRequestInfo(), true))
@@ -62,9 +60,12 @@ public class EgLicenseUiFieldCotroller {
 	}
 	
 	@PostMapping("/_search")
-	public ResponseEntity<EgLiecnseUiFieldInfoResponse> search(@RequestBody RequestInfoWrapper requestInfoWrapper,@RequestParam("applicationNumber") String applicationNumber) {
+	public ResponseEntity<EgLiecnseUiFieldInfoResponse> search(@RequestBody RequestInfoWrapper requestInfoWrapper,@RequestParam("id") Integer id) {
 
-		List<EgLiecnseUiField> egLiecnseUiFieldList = egLiecnseUiFieldServices.search();
+		EgLiecnseUiField egLiecnseUiField = egLiecnseUiFieldServices.search(id);
+		List<EgLiecnseUiField> egLiecnseUiFieldList = new ArrayList<>();
+		egLiecnseUiFieldList.add(egLiecnseUiField);
+		
 		EgLiecnseUiFieldInfoResponse egLiecnseUiFieldInfoResponse = EgLiecnseUiFieldInfoResponse.builder(). egLiecnseUiField(egLiecnseUiFieldList)
 				.responseInfo(responseInfoFactory
 						.createResponseInfoFromRequestInfo(requestInfoWrapper.getRequestInfo(), true))
@@ -72,4 +73,6 @@ public class EgLicenseUiFieldCotroller {
 		
 		return new ResponseEntity<>(egLiecnseUiFieldInfoResponse, HttpStatus.OK);
 	}
+	
+	
 }

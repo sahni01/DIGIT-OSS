@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface EgLicenseUiFieldRepo extends JpaRepository<EgLiecnseUiField, Long>{
 
+	public EgLiecnseUiField findById(Integer id);
 }

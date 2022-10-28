@@ -17,7 +17,7 @@ public class EgLiecnseUiFieldServices {
 		return egLicenseUiFieldRepo.save(egLiecnseUiFieldInfoRequest.getEgLiecnseUiField());
 	}
 	
-	public List<EgLiecnseUiField> search(){
-		return egLicenseUiFieldRepo.findAll();
+	public EgLiecnseUiField search(Integer id){
+		return egLicenseUiFieldRepo.findById(id);
 	}
 }
