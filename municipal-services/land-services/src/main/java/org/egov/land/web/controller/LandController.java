@@ -20,6 +20,7 @@ import org.egov.land.web.models.LandSearchCriteria;
 import org.egov.land.web.models.RequestInfoWrapper;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,9 +34,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/v1")
 public class LandController {
-	@Autowired
-	FeeTypeCalculationDtoInfo info;
-	
+
 	@Autowired
 	private LandService landService;
 
@@ -44,6 +43,22 @@ public class LandController {
 	
 	@Autowired
 	private LandUtil landUtil;
+
+	
+	
+	
+	@GetMapping("/_calculate")
+	
+	public FeeTypeCalculationDtoInfo get(@RequestParam("arce") float arce, @RequestParam("feeType") String feeType,
+			@RequestParam("potenialZone") String potenialZone, @RequestParam("purposename") String purposename,
+			@RequestParam("colonyType") String colonyType) throws FileNotFoundException, IOException, ParseException {
+
+		FeesTypeCalculationDto calculator = Calculator.feesTypeCalculation(arce, feeType, potenialZone, purposename,
+				colonyType);
+		FeeTypeCalculationDtoInfo info = new FeeTypeCalculationDtoInfo();
+		info.setFeeTypeCalculationDto(calculator);
+		return info;
+	}
 	
 	@PostMapping(value = "/land/_create")
 	public ResponseEntity<LandInfoResponse> create(@Valid @RequestBody LandInfoRequest landRequest) {
@@ -84,15 +99,6 @@ public class LandController {
 
 	
 
-	@GetMapping("/_calculate")
-	public FeeTypeCalculationDtoInfo get(@RequestParam("arce") float arce, @RequestParam("feeType") String feeType,
-			@RequestParam("potenialZone") String potenialZone, @RequestParam("purposename") String purposename,
-			@RequestParam("colonyType") String colonyType) throws FileNotFoundException, IOException, ParseException {
-
-		FeesTypeCalculationDto calculator = Calculator.feesTypeCalculation(arce, feeType, potenialZone, purposename,
-				colonyType);
-		info.setFeeTypeCalculationDto(calculator);
-		return info;
-	}
+	
 	
 }
