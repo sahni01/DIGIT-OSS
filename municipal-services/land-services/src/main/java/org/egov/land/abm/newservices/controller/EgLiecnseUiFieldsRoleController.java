@@ -14,6 +14,7 @@ import org.egov.land.web.models.RequestInfoWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -68,9 +69,9 @@ public class EgLiecnseUiFieldsRoleController {
 	
 	
 	@PostMapping("{roleId}/_get")
-	public ResponseEntity<EgLiecnseUiFieldsRoleResponse> getByRole(@RequestBody RequestInfoWrapper requestInfoWrapper,@RequestParam("roleId")Integer roleId){
+	public ResponseEntity<EgLiecnseUiFieldsRoleResponse> getByRole(@RequestBody RequestInfoWrapper requestInfoWrapper,@PathVariable("roleId")String roleId){
 		
-		List<EgLiecnseUiFieldsRole> egLiecnseUiFieldsRoleList = egLiecnseUiFieldsRoleServices.getByRoleId(roleId);
+		List<EgLiecnseUiFieldsRole> egLiecnseUiFieldsRoleList = egLiecnseUiFieldsRoleServices.getByRoleId(Integer.parseInt(roleId));
 		EgLiecnseUiFieldsRoleResponse egLiecnseUiFieldsRoleResponse = EgLiecnseUiFieldsRoleResponse.builder().egLiecnseUiFieldsRole(egLiecnseUiFieldsRoleList).
 				responseInfo(responseInfoFactory.createResponseInfoFromRequestInfo(requestInfoWrapper.getRequestInfo(), true)).build();
 		
