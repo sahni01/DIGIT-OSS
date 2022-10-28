@@ -7,7 +7,8 @@ import lombok.Setter;
 
 @Getter
 @Setter
-class FeesTypeCalculationDto {
+
+public class FeesTypeCalculationDto {
 
 	private float scrutinyFeeChargesCal;
 	private float licenseFeeChargesCal;

@@ -1,10 +1,15 @@
 package org.egov.land.web.controller;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
 
+import org.egov.land.calcutaor.Calculator;
+import org.egov.land.calcutaor.FeeTypeCalculationDtoInfo;
+import org.egov.land.calcutaor.FeesTypeCalculationDto;
 import org.egov.land.service.LandService;
 import org.egov.land.util.LandUtil;
 import org.egov.land.util.ResponseInfoFactory;
@@ -13,18 +18,23 @@ import org.egov.land.web.models.LandInfoRequest;
 import org.egov.land.web.models.LandInfoResponse;
 import org.egov.land.web.models.LandSearchCriteria;
 import org.egov.land.web.models.RequestInfoWrapper;
+import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/v1")
 public class LandController {
+	@Autowired
+	FeeTypeCalculationDtoInfo info;
 	
 	@Autowired
 	private LandService landService;
@@ -70,6 +80,19 @@ public class LandController {
 				.responseInfo(responseInfoFactory.createResponseInfoFromRequestInfo(requestInfoWrapper.getRequestInfo(), true))
 				.build();
 		return new ResponseEntity<>(response, HttpStatus.OK);
+	}
+
+	
+
+	@GetMapping("/_calculate")
+	public FeeTypeCalculationDtoInfo get(@RequestParam("arce") float arce, @RequestParam("feeType") String feeType,
+			@RequestParam("potenialZone") String potenialZone, @RequestParam("purposename") String purposename,
+			@RequestParam("colonyType") String colonyType) throws FileNotFoundException, IOException, ParseException {
+
+		FeesTypeCalculationDto calculator = Calculator.feesTypeCalculation(arce, feeType, potenialZone, purposename,
+				colonyType);
+		info.setFeeTypeCalculationDto(calculator);
+		return info;
 	}
 	
 }
