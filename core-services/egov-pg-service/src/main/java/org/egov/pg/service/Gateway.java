@@ -1,8 +1,6 @@
 package org.egov.pg.service;
 
 import org.egov.pg.models.Transaction;
-import org.egov.pg.service.gateways.nic.NicResponse;
-
 
 import java.net.URI;
 import java.util.Map;
@@ -57,6 +55,4 @@ public interface Gateway {
      * @return Transaction ID
      */
     String transactionIdKeyInResponse();
-
-
 }
