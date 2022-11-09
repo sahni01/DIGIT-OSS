@@ -348,7 +348,7 @@ const DeveloperCapacity = ({ t, config, onSelect, formData, formDataValue, data 
         }}
       >
         <span style={{ color: "#817f7f" }} className="">
-          DeveloperCapacity
+          Developer Capacity
         </span>
         {open ? <RemoveIcon></RemoveIcon> : <AddIcon></AddIcon>}
       </div>
